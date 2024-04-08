@@ -23,6 +23,11 @@ public class HomePage extends BasePageObject {
 	@FindBy(xpath="//button[@class=\"button-1 search-box-button\"]")
 	WebElement btnSearch;
 	
+	@FindBy(xpath="//a[@class=\"ico-cart\"]")
+	WebElement shoppingcart;
+	
+	
+	
 	
 		
 	// Action Methods
@@ -43,6 +48,10 @@ public class HomePage extends BasePageObject {
 	public void clickSearch()  //For Search Product Test
 	{
 		btnSearch.click();
+	}
+	
+	public void clickOnShoppingCart() {
+		shoppingcart.click();
 	}
 	
 	

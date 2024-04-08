@@ -13,167 +13,220 @@ public class CheckoutPage extends BasePageObject{
 		super(driver);
 	}	
 	
-	@FindBy(xpath="//input[@id='input-payment-firstname']")
-	WebElement txtfirstName;
+	@FindBy(xpath="id=\"ShipToSameAddress\"")
+	WebElement stsacheckbox;
 	
-	@FindBy(xpath="//input[@id='input-payment-lastname']")
-	WebElement txtlastName;
+	@FindBy(xpath="//input[@id=\"Address_FirstName\"]")
+	WebElement first_name;
 	
-
-	@FindBy(xpath="//input[@id='input-payment-address-1']")
-	WebElement txtaddress1;
+	@FindBy(xpath="//input[@id='Address_LastName']")
+	WebElement last_name;
 	
-	@FindBy(xpath="//input[@id='input-payment-address-2']")
-	WebElement txtaddress2;
+	@FindBy(xpath="//input[@id='Address_Email']")
+	WebElement email;
 	
+	@FindBy(xpath="//select[@id='Address_CountryId']")
+	WebElement country;
 	
-	@FindBy(xpath="//input[@id='input-payment-city']")
-	WebElement txtcity;
+	@FindBy(xpath="//input[@id='Address_City']")
+	WebElement city;
 	
+	@FindBy(xpath="//input[@id='Address_Address1']")
+	WebElement address1;
 	
-	@FindBy(xpath="//input[@id='input-payment-postcode']")
-	WebElement txtpin;
+	@FindBy(xpath="//input[@id='Address_ZipPostalCode']")
+	WebElement postcode;
 	
-	
-	@FindBy(xpath="//select[@id='input-payment-country']")
-	WebElement drpCountry;
-	
-	
-	@FindBy(xpath="//select[@id='input-payment-zone']")
-	WebElement drpState;
-
-	@FindBy(xpath="//input[@id='button-payment-address']")
-	WebElement btncontinueBillingAddress;
-	
-	@FindBy(xpath="//input[@id='button-shipping-address']")
-	WebElement btncontinueDeliveryAddress;
-	
-	@FindBy(xpath="//textarea[@name='comment']")
-	WebElement txtDeliveryMethod;
-	
-	@FindBy(xpath="//input[@id='button-shipping-method']")
-	WebElement btncontinueShippingAddress;
-	
-	
-	@FindBy(xpath="//input[@name='agree']")
-	WebElement chkboxTerms;
-	
-	
-	@FindBy(xpath="//input[@id='button-payment-method']")
-	WebElement btncontinuePaymentMethod;
-	
-	
-	@FindBy(xpath="//strong[text()='Total:']//following::td")
-	WebElement lblTotalPrice;
-	
-	
-	@FindBy(xpath="//input[@id='button-confirm']")
-	WebElement btnConfOrder;
-	
-	
-	@FindBy(xpath="//*[@id='content']/h1")
-	WebElement lblOrderConMsg;
+	@FindBy(xpath="//input[@id='Address_PhoneNumber']")
+	WebElement phnnum;
 	
 	
 
-	public void setfirstName(String firstName) {
-		txtfirstName.sendKeys(firstName);
-	}
-
-
-	public void setlastName(String lastName) {
-		txtlastName.sendKeys(lastName);
-	}
-
-
-	public void setaddress1(String address1) {
-		txtaddress1.sendKeys(address1);
-	}
-
-
-	public void setaddress2(String address2) {
-		txtaddress2.sendKeys(address2);
-	}
-
-
-	public void setcity(String city) {
-		txtcity.sendKeys(city);
-	}
-
-
-	public void setpin(String pin) {
-		txtpin.sendKeys(pin);
-	}
-
-
-	public void setCountry(String Country) {
-		new Select(drpCountry).selectByVisibleText(Country);
-	}
-
-
-	public void setState(String State) {
-		new Select(drpState).selectByVisibleText(State);
-	}
-	
-	public void clickOnContinueAfterBillingAddress()
-	{
-		btncontinueBillingAddress.click();
-	}
-	
-	public void clickOnContinueAfterDeliveryAddress()
-	{
-		btncontinueDeliveryAddress.click();
-	}
+	@FindBy(xpath="//button[@class=\"button-1 new-address-next-step-button\" and @name=\"save\" ]")
+	WebElement bacontinue;
 	
 	
-	public void setDeliveryMethodComment(String deliverymsg)
-	{
-		txtDeliveryMethod.sendKeys(deliverymsg);
+	
+	@FindBy(xpath="//input[@name=\"shippingoption\"]")
+	WebElement deliverymethod;
+	
+	@FindBy(xpath="//div[@id=\"shipping-method-buttons-container\"]//a")
+	WebElement deliverymethodback;
+	
+	@FindBy(xpath="//button[@class=\"button-1 shipping-method-next-step-button\"]")
+	WebElement deliverymethodcontinue;
+	
+	@FindBy(xpath="//input[@name=\"paymentmethod\"]")
+	WebElement paymentmethod;
+	
+	@FindBy(xpath="//div[@id=\"payment-method-buttons-container\"]//a")
+	WebElement paymentmethodback;
+	
+	@FindBy(xpath="//button[@class=\"button-1 payment-method-next-step-button\"]")
+	WebElement paymentmethodcontinue;
+	
+	@FindBy(xpath="//div[@id=\"payment-info-buttons-container\"]//a")
+	WebElement paymentinfoback;
+	
+	@FindBy(xpath="//button[@class=\"button-1 payment-info-next-step-button\"]")
+	WebElement paymentinfocontinue;
+	
+	
+	@FindBy(xpath="//tr[@class=\"order-total\"]//span//strong")
+	WebElement ordertotal;
+	
+	
+	@FindBy(xpath="//div[@id=\"confirm-order-buttons-container\"]//a")
+	WebElement confirmbackbtn;
+	
+	
+	@FindBy(xpath="//button[text()=\"Confirm\"]")
+	WebElement confirm;
+	
+	
+	@FindBy(xpath="//div[@class=\"title\"]//strong")
+	WebElement ordersuccess;
+	
+	
+	
+	
+	public void shippingAddressSameCheckBox() {
 		
-	}
-	
-	public void clickOnContinueAfterDeliveryMethod()
-	{
-		btncontinueShippingAddress.click();
-	}
-	
-	public void selectTermsAndConditions()
-	{
-		chkboxTerms.click();
-	}
-	
-	public void clickOnContinueAfterPaymentMethod()
-	{
-		btncontinuePaymentMethod.click();
-	}
-	
-	public String  getTotalPriceBeforeConfOrder()
-	{
-		return lblTotalPrice.getText(); //$207.00
 		
-	}
-	
-	public void clickOnConfirmOrder() {
-		btnConfOrder.click();
-	}
-	
-	public boolean isOrderPlaced() throws InterruptedException
-	{
-		try
-		{
-		driver.switchTo().alert().accept();
-		Thread.sleep(2000);
-		btnConfOrder.click();
-		Thread.sleep(3000);
-		if(lblOrderConMsg.getText().equals("Your order has been placed!"))
-			return true;
-		else
-			return false;
-		}catch(Exception e)
-		{
-			return false;
+		if(stsacheckbox.isSelected()) {
+			System.out.println("already selected");
 		}
+		else {
+			stsacheckbox.click();
+		}
+	}
+
+	public void enterFirstName(String f_name) {
+		first_name.sendKeys(f_name);
+	}
+	
+	public void enterLastName(String l_name) {
+		last_name.sendKeys(l_name);
+	}
+	
+	public void enterEmail(String Email) {
+		email.sendKeys(Email);
+	}
+	
+	public void selectCountry(String value) {
+		Select drp_country = new Select(country);
+		
+		//drp_country.selectByValue(value);
+		drp_country.selectByVisibleText(value);
+	}
+	public void enterCity(String ct) {
+		city.sendKeys(ct);
+	}
+	
+	public void enterAdress1(String add1) {
+		address1.sendKeys(add1);
+	}
+	public void enterPostalCode(String pcode) {
+		postcode.sendKeys(pcode);
+	}
+	public void enterPhoneNumber(String pno) {
+		phnnum.sendKeys(pno);
+	}
+	
+	public void clickOnContinueOnstep1()
+	{
+		bacontinue.click();
+	}
+	
+	public void clickOnDeliveryMethod()
+	{
+		String dlvrymethod = deliverymethod.getText();
+		System.out.println(dlvrymethod);
+		
+		
+		if(deliverymethod.equals("Ground ($0.00)")) {
+			
+			deliverymethod.click();
+			
+			//Next Day Air ($0.00)
+			//The two day air shipping
+            
+		}
+	}
+	
+	public void clickOnBackdeliverymethod()
+	{
+		deliverymethodback.click();
+	}
+	
+	public void clickOnContinueOnstep2()
+	{
+		deliverymethodcontinue.click();
+	}
+	
+	
+	
+	
+	public void clickOnPaymentMethod()
+	{
+		String paymethod = paymentmethod.getText();
+		System.out.println(paymethod);
+		
+		
+		if(paymentmethod.equals("Check / Money Order")) {
+			
+			paymentmethod.click();
+			
+			//Pay by cheque or money order
+            
+		}
+	}
+	
+	public void clickOnBackPaymentmethod()
+	{
+		paymentmethodback.click();
+	}
+	public void clickOnContinueOnstep3()
+	{
+		paymentmethodcontinue.click();
+	}
+	
+	
+	public void clickOnContinueOnstep4()
+	{
+		paymentinfocontinue.click();
 		
 	}
+	
+	public void clickOnBackconfirm()
+	{
+		paymentmethodback.click();
+	}
+	
+	public void clickOnContinueOnstep5()
+	{
+		confirm.click();
+	}
+	
+	public void validationSuccessMsg()
+	{
+		String ordered = ordersuccess.getText();
+		System.out.println(ordered);
+		
+		
+		if(ordersuccess.equals("Your order has been successfully processed!")) {
+			
+			System.out.println("Test Passed");
+			
+			//Pay by cheque or money order
+            
+		}
+		else {
+			System.out.println("Test failed");
+		}
+	}
+	
+	
+	
 	
 }

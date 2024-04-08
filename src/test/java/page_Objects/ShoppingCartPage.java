@@ -1,5 +1,6 @@
 package page_Objects;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,36 +12,44 @@ public class ShoppingCartPage extends BasePageObject
 		super(driver);
 	}
 	
-	//@FindBy(xpath="//button[@aria-expanded='false']")
-	@FindBy(xpath="//div[@id='cart']")
-	WebElement btnItems;
 	
-	@FindBy(xpath="//strong[normalize-space()='View Cart']")
-	WebElement lnkViewCart;
+	@FindBy(xpath="//input[@name=\"termsofservice\"]")
+	WebElement checkbox;
 	
-	@FindBy(xpath="//*[@id='content']/div[2]/div/table//strong[text()='Total:']//following::td")
-	WebElement lblTotalPrice;  //$246.40
+	@FindBy(id="checkout")
+	WebElement checkout;
 	
-	@FindBy(xpath="//a[text()='Checkout']")
-	WebElement btnCheckout;
+	@FindBy(xpath="//div[@class=\"page-title\"]//h1")
+	WebElement title;
 	
-	public void clickItemsToNavigateToCart()
+	
+	
+	public void clickOnCheckBox()
 	{
-		btnItems.click();
+		checkbox.click();
 	}
-	
-	public void clickViewCart()
-	{
-		lnkViewCart.click();
-	}
-	
-	public String getTotalPrice()
-	{
-		return lblTotalPrice.getText();
-	}
+		
 	
 	public void clickOnCheckout()
 	{
-		btnCheckout.click();
+		checkout.click();
 	}
+	
+	public void validatingTitle()
+	{
+		String pagetitle = title.getText();
+		System.out.println(pagetitle);
+		
+		
+		if(title.equals("Checkout")) {
+			
+			Assert.assertTrue(true);
+			System.out.println("Test passed");
+            
+		}
+		else {
+			System.out.println("Test failed");
+		}
+	}
+	
 }
