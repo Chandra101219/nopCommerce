@@ -38,7 +38,7 @@ public class RegistrationPage extends BasePageObject {
 		@FindBy(xpath = "//button[@id=\"register-button\"]")
 		WebElement btn_register;
 
-		@FindBy(xpath = "//div[text()=\"Your registration completed\"]")
+		@FindBy(xpath = "class=\"result\"")
 		WebElement reg_msg;
 		
 		@FindBy(xpath = "//li[normalize-space()='The specified email already exists']")
@@ -122,6 +122,15 @@ public class RegistrationPage extends BasePageObject {
 
 		}
 		
+		
+		public boolean validationMessage() {
+			try {
+				return (reg_msg.isDisplayed());
+			} catch (Exception e) {
+				return (false);
+			}
+			
+		}
 
 		
 }

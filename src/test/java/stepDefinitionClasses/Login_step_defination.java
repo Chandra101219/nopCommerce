@@ -1,6 +1,10 @@
 package stepDefinitionClasses;
 
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 
@@ -10,6 +14,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import page_Objects.HomePage;
 import page_Objects.LoginPage;
+import page_Objects.MyAccountPage;
+import utilities.DataReader;
 
 
 public class Login_step_defination {
@@ -17,6 +23,9 @@ public class Login_step_defination {
 	WebDriver driver;
 	HomePage hp;
 	LoginPage lp;
+	MyAccountPage mapg;
+	
+	List<HashMap<String, String>> datamap;
 
 //Scenario: 1 (Login with valid credentials)
 	
@@ -69,6 +78,64 @@ public class Login_step_defination {
 	    
 	    lp.getErrorMsg();
 	    
+	}
+	
+//Data Driven Test Scenario
+	
+	@Then("the user should be redirected to the MyAccount Page by passing email and password with excel row {string}")
+	public void the_user_should_be_redirected_to_the_my_account_page_by_passing_email_and_password_with_excel_row(String rows) {
+		 datamap=DataReader.data(System.getProperty("user.dir")+"\\testdata\\Opencart_LoginData.xlsx", "Sheet1");
+
+	        int index=Integer.parseInt(rows)-1;
+	        String email= datamap.get(index).get("username");
+	        String pwd= datamap.get(index).get("password");
+	        String exp_res= datamap.get(index).get("res");
+
+	        lp=new LoginPage(Base_class.getDriver());
+	        lp.enterEmail(email);
+	        lp.enterPassword(pwd);
+
+	        lp.clickOnLogin();
+	        mapg=new MyAccountPage(Base_class.getDriver());
+	        try
+	        {
+	            boolean targetpage=mapg.isMyAccountPageExists();
+	            System.out.println("target page: "+ targetpage);
+	            if(exp_res.equals("Valid"))
+	            {
+	                if(targetpage==true)
+	                {
+	                    MyAccountPage myaccpage=new MyAccountPage(Base_class.getDriver());
+	                    myaccpage.clickOnLogout();
+	                    Assert.assertTrue(true);
+	                }
+	                else
+	                {
+	                    Assert.assertTrue(false);
+	                }
+	            }
+
+	            if(exp_res.equals("Invalid"))
+	            {
+	                if(targetpage==true)
+	                {
+	                    mapg.clickOnLogout();
+	                    Assert.assertTrue(false);
+	                }
+	                else
+	                {
+	                    Assert.assertTrue(true);
+	                }
+	            }
+
+
+	        }
+	        catch(Exception e)
+	        {
+
+	            Assert.assertTrue(false);
+	        }
+
 	}
 
 }

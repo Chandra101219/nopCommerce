@@ -39,8 +39,10 @@ public class DataReader {
 					}
 				mydata.add(currentHash);
 				}
+			
 			fs.close();
-			} catch (Exception e) {
+			} 
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return mydata;

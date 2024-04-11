@@ -1,7 +1,10 @@
 package stepDefinitionClasses;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import factory.Base_class;
 import io.cucumber.datatable.DataTable;
@@ -9,7 +12,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import page_Objects.HomePage;
+import page_Objects.MyAccountPage;
 import page_Objects.RegistrationPage;
+import utilities.DataReader;
 
 
 public class Register_step_defination {
@@ -17,6 +22,8 @@ public class Register_step_defination {
 	WebDriver driver;
 	HomePage hp;
 	RegistrationPage reg_pg;
+	
+	List<HashMap<String, String>> datamap;
 	
 	
 //Scenario:1
@@ -72,6 +79,71 @@ public class Register_step_defination {
 	public void the_user_should_see_an_error_message() {
 		reg_pg.getErrorMsg();
 		
+	}
+	
+	
+//Registration using Data driven method
+	
+	@Then("the user should get the Registration completed message with the details passing through excel {string}")
+	public void the_user_should_get_the_registration_completed_message_with_the_details_passing_through_excel(String rows) {
+		datamap=DataReader.data(System.getProperty("user.dir")+"\\testdata\\Opencart_Registration_Data.xlsx", "Sheet1");
+
+        int index=Integer.parseInt(rows)-1;
+        String firstname= datamap.get(index).get("Firstname");
+        String lastname= datamap.get(index).get("Lastname");
+        String email= datamap.get(index).get("Email");
+        String passwd= datamap.get(index).get("Password");
+        String conf_passwd= datamap.get(index).get("ConfirmPassword");
+        String exp_res= datamap.get(index).get("res");
+        
+        reg_pg = new RegistrationPage(Base_class.getDriver());
+        
+        reg_pg.enterFirstName(firstname);
+		reg_pg.enterLastName(lastname);
+		reg_pg.eneterEmail(email);
+		reg_pg.enterPassword(passwd);
+		reg_pg.enterConfirmPassword(conf_passwd);
+		
+		try
+        {
+		boolean target_msg = reg_pg.validationMessage();
+
+        System.out.println("target page: "+ target_msg);
+        if(exp_res.equals("Valid"))
+        {
+        	if(target_msg==true)
+            {
+        		Assert.assertTrue(true);
+            }
+            else
+            {
+                Assert.assertTrue(false);
+            }
+            }
+
+        if(exp_res.equals("Invalid"))
+        {
+        	if(target_msg==true)
+        	{
+        		Assert.assertTrue(false);
+        	}
+        	else
+        	{
+        		Assert.assertTrue(true);
+        	}
+        }
+
+        }
+        catch(Exception e)
+        {
+
+            Assert.assertTrue(false);
+        }
+		
+		
+        
+        
+        
 	}
 
 }

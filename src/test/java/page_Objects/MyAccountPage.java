@@ -13,7 +13,15 @@ public class MyAccountPage extends BasePageObject{
 		super(driver);
 	}
 	
-//Addresses Module
+
+	@FindBy(xpath = "//a[@class=\"ico-account\"]") 
+	WebElement msgHeading;
+	
+	@FindBy(xpath = "//a[@class=\"ico-logout\"]")
+	WebElement logout;
+
+
+//Addresses Module	
 	@FindBy(linkText="Addresses")
 	WebElement addresses;
 	
@@ -29,7 +37,18 @@ public class MyAccountPage extends BasePageObject{
 	WebElement orders;
 	
 	
+	public boolean isMyAccountPageExists()   // MyAccount Page heading display status
+	{
+		try {
+			return (msgHeading.isDisplayed());
+		} catch (Exception e) {
+			return (false);
+		}
+	}
 	
+	public void clickOnLogout() {
+		logout.click();
+	}
 	
 	public void clickOnAddresses() {
 		addresses.click();
